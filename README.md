@@ -1,5 +1,5 @@
 # CalDav
-CalDav server and client libraries. It supports Google, iCloud, Yahoo and Outlook calendars.
+CalDav server and client libraries. It supports Google, iCloud and Yahoo calendars.
 
 # Installation
 

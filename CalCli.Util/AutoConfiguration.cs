@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CalCli;
-using OutlookClient;
 using CalCli.API;
 using System.IO;
 using CalCli.Connections;
@@ -28,53 +27,46 @@ namespace CalCli.Util
         public static IServer GetCalendarServer(CalendarTypes calendarTypes, string username = null, string password = null)
         {
             IServer server;
-            if(calendarTypes == CalendarTypes.Outlook)
+            IConnection connection;
+            if (calendarTypes == CalendarTypes.Google)
             {
-                return new OutlookServer();
-            }
-            else
-            {
-                IConnection connection;
-                if (calendarTypes == CalendarTypes.Google)
+                if (File.Exists("token"))
                 {
-                    if (File.Exists("token"))
-                    {
-                        StreamReader sr = new StreamReader("token");
-                        connection = new GoogleConnection(sr.ReadLine());
-                        sr.Close();
-                    }
-                    else
-                    {
-                        connection = refreshGoogleToken();
-                    }
-                    server = null;
+                    StreamReader sr = new StreamReader("token");
+                    connection = new GoogleConnection(sr.ReadLine());
+                    sr.Close();
                 }
                 else
                 {
-                    connection = new BasicConnection(username , password);
-                    server = null;
+                    connection = refreshGoogleToken();
                 }
-                if (server == null)
+                server = null;
+            }
+            else
+            {
+                connection = new BasicConnection(username , password);
+                server = null;
+            }
+            if (server == null)
+            {
+                try
                 {
-                    try
+                    server = new CalDav.Client.Server(urlFromCalendarType(calendarTypes), connection, username, password);
+
+                }
+                catch (Exception ex)
+                {
+                    if (ex.Message == "Authentication is required" && connection.GetType().Equals(new GoogleConnection("").GetType()))
                     {
+                        connection = refreshGoogleToken();
                         server = new CalDav.Client.Server(urlFromCalendarType(calendarTypes), connection, username, password);
 
                     }
-                    catch (Exception ex)
-                    {
-                        if (ex.Message == "Authentication is required" && connection.GetType().Equals(new GoogleConnection("").GetType()))
-                        {
-                            connection = refreshGoogleToken();
-                            server = new CalDav.Client.Server(urlFromCalendarType(calendarTypes), connection, username, password);
-
-                        }
-                        else
-                            throw ex;
-                    }
+                    else
+                        throw ex;
                 }
-                return server;
             }
+            return server;
         }
 
         private static string urlFromCalendarType(CalendarTypes calendarTypes)
@@ -86,8 +78,6 @@ namespace CalCli.Util
                     return "https://caldav.icloud.com/";
                 case CalendarTypes.Yahoo:
                     return "https://caldav.calendar.yahoo.com/dav/";
-                case CalendarTypes.Outlook:
-                    return "Outlook";
             }
             return null;
         }

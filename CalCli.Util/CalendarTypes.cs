@@ -8,7 +8,6 @@ namespace CalCli.Util
 {
     public enum CalendarTypes
     {
-        Outlook,
         Google, 
         Yahoo,
         iCloud

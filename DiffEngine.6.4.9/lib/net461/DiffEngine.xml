@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DiffEngine</name>
+    </assembly>
+    <members>
+        <member name="T:DiffEngine.DiffRunner">
+            <summary>
+            Manages diff tools processes.
+            </summary>
+        </member>
+        <member name="M:DiffEngine.DiffRunner.Launch(System.String,System.String)">
+            <summary>
+            Launch a diff tool for the given paths.
+            </summary>
+        </member>
+        <member name="M:DiffEngine.DiffRunner.LaunchAsync(System.String,System.String)">
+            <summary>
+            Launch a diff tool for the given paths.
+            </summary>
+        </member>
+        <member name="M:DiffEngine.DiffRunner.Kill(System.String,System.String)">
+            <summary>
+            Find and kill a diff tool process.
+            </summary>
+        </member>
+        <member name="M:DiffEngine.ProcessCleanup.Kill(System.String)">
+            <summary>
+            Find a process with the matching command line and kill it.
+            </summary>
+        </member>
+        <member name="M:DiffEngine.ProcessCleanup.FindAll">
+            <summary>
+            Find all processes with `% %.%.%` in the command line.
+            </summary>
+        </member>
+        <member name="P:DiffEngine.ProcessCommand.Command">
+            <summary>
+            The command line used to launch the process.
+            </summary>
+        </member>
+        <member name="P:DiffEngine.ProcessCommand.Process">
+            <summary>
+            The process Id.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -58,10 +58,6 @@
       <Project>{1b9b42a0-a34b-4bf6-a5d5-21c46ed0d9b3}</Project>
       <Name>CalDav.Client</Name>
     </ProjectReference>
-    <ProjectReference Include="..\OutlookClient\OutlookClient.csproj">
-      <Project>{01af789a-f9ce-47f7-a66c-d3bae82aecc3}</Project>
-      <Name>OutlookClient</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

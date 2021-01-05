@@ -5,7 +5,6 @@ using CalCli.Connections;
 using System.IO;
 using CalCli.API;
 using CalCli;
-using Outlook = Microsoft.Office.Interop.Outlook;
 using System.Collections.Generic;
 using CalCli.Util;
 
@@ -43,11 +42,6 @@ namespace Demo.CalCli
                     refreshGoogleToken();
                 }
                 server = null;
-            }
-            else if (urlCombo.Text.Contains("Outlook"))
-            {
-                connection = new BasicConnection(null, null);
-                server = new OutlookClient.OutlookServer();
             }
             else
             {
@@ -124,18 +118,7 @@ namespace Demo.CalCli
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Outlook.Application olApp = new Outlook.Application();
-            Outlook.NameSpace mapiNS = olApp.GetNamespace("MAPI");
 
-            string profile = "";
-            mapiNS.Logon(profile, null, null, null);
-
-            Outlook.AppointmentItem apt = olApp.CreateItem(Outlook.OlItemType.olAppointmentItem);
-            apt.Start = DateTime.Now.AddHours(-3);
-            apt.End = apt.Start.AddHours(1);
-            apt.Subject = "Please synch in advance.";
-            apt.Save();
-            apt.Send();
         }
 
         private void Main_Load(object sender, EventArgs e)
@@ -228,8 +211,6 @@ namespace Demo.CalCli
                 return CalendarTypes.iCloud;
             if (text == "Yahoo")
                 return CalendarTypes.Yahoo;
-            if (text == "Outlook")
-                return CalendarTypes.Outlook;
             return CalendarTypes.Google;
         }
     }
