@@ -4,7 +4,7 @@ install:
   - nuget restore CalDav.sln
   - nuget install NUnit.Runners -OutputDirectory testrunner
 script:
-  - xbuild CalDav.sln /p:TargetFrameworkVersion="v4.5" /p:Configuration=Stress
+  - xbuild CalDav.sln
 #  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./TreasureGen.Tests.Unit/bin/Stress/TreasureGen.Tests.Unit.dll
 #  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./TreasureGen.Tests.Integration.IoC/bin/Stress/TreasureGen.Tests.Integration.IoC.dll
 #  - mono ./testrunner/NUnit.ConsoleRunner.*/tools/nunit3-console.exe ./TreasureGen.Tests.Integration.Tables/bin/Stress/TreasureGen.Tests.Integration.Tables.dll
